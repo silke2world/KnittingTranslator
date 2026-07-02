@@ -42,15 +42,16 @@ async function loadRules() {
 function buildRegex(rule) {
   try {
     if (rule.isRegex) {
-      return new RegExp(rule.pattern, "g");
+      return new RegExp(rule.pattern, "gi");
     }
 
+    // 🔥 Wortgrenzen + case insensitive
     return new RegExp(
-      rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-      "g"
+      "\\b" + rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b",
+      "gi"
     );
   } catch (e) {
-    console.warn("❌ Ungültige Regex-Regel übersprungen:", rule.pattern);
+    console.warn("❌ Ungültige Regel:", rule.pattern);
     return null;
   }
 }
