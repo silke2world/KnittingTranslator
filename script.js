@@ -30,7 +30,7 @@ async function loadRules() {
 loadRules(); 
 
 function applyRule(text, rule, used) {
-  const regex = new RegExp(rule.pattern, "g");
+  const regex = new RegExp(rule.pattern, "gi");
 
   return text.replace(regex, (...args) => {
     const match = args[0];
