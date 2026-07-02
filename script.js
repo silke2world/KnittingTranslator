@@ -109,14 +109,18 @@ function applyRule(text, rule, usedMap, regex) {
       return groups[i - 1] ?? "";
     });
 
+    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
+      return groups[i - 1] ?? "";
+    });
+
     if (rule.meaning) {
       addUsed(usedMap, {
         input: match,
         output: repl,
-        meaning: rule.meaning,
-        rule: rule.pattern + "|" + rule.repl
-      });
-    }
+        meaning: meaning,
+        rule: rule.pattern
+  });
+}
 
     return repl;
   });
