@@ -6,6 +6,9 @@
 p3so-k1-yo-k1=3 M. überzogen zus. | 3. Masche über die ersten 2 Maschen ziehen, 1 re M., U, 1 re M.
 times=x
 ctr dbl inc=zentr. Doppelzunahme | 1 M. re verschr., 1 M. re in gleiche M., Faden zwischen Maschen aufnehmen und verschränkt abstricken
+RS=Hinreihe
+WS=Rückreihe
+
 
 # Cables
 
