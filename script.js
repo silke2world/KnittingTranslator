@@ -124,6 +124,8 @@ function copyText() {
 }
 
 function clearAll() {
+  console.log("CLEAR CLICKED");
+
   document.getElementById("input").value = "";
   document.getElementById("output").value = "";
 }
