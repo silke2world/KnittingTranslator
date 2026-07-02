@@ -1,0 +1,32 @@
+
+
+# neu
+
+1-to-7 inc=7 M. aus 1 M. zunehmen | aus 1 Masche 7 Maschen herausstricken: (1re, U, 1re, U, 1re, U, 1re) in die gleiche Masche
+p3so-k1-yo-k1=3 M. überzogen zus. | 3. Masche über die ersten 2 Maschen ziehen, 1 re M., U, 1 re M.
+times=x
+ctr dbl inc=zentr. Doppelzunahme | 1 M. re verschr., 1 M. re in gleiche M., Faden zwischen Maschen aufnehmen und verschränkt abstricken
+
+# Cables
+
+2/2 LC=2/2 LC|(left cable) 2 M. nach links verzopfen: 2 M. auf Hilfsnadel vorn, 2 M. re, 2 M. von Hilfsnadel
+2/2 RC=2/2 RC|(right cable) 2 M. nach rechts verzopfen: 2 M. auf Hilfsnadel hinten, 2 M. re, 2 M. von Hilfsnadel
+2/2 LPC=2/2 LPC|2 M. vorn, 2 M. li, 2 M. re
+2/2 RPC=2/2 RPC|2 M. hinten, 2 M. li, 2 M. re
+1/1 LC=1/1 LC|(left cable) 1 M. vorn, 1 M. re, 1 M. re
+1/1 RC=1/1 RC|(right cable) 1 M. hinten, 1 M. re, 1 M. re
+
+# Allgemeine Begriffe
+
+and=und
+knit=rechte Maschen
+purl=linke Maschen
+rows=Reihen
+row=Reihe
+Row=Reihe
+rounds=Runden
+round=Runde
+repeat from=wiederhole ab
+repeat=wiederhole
+to last st=bis zur letzten Masche
+turn=Arbeit wenden
