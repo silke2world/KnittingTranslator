@@ -33,7 +33,6 @@ function applyRule(text, rule, used) {
     const match = args[0];
     const groups = args.slice(1);
 
-    // $1, $2 korrekt ersetzen
     let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
       return groups[i - 1] ?? "";
     });
