@@ -1,0 +1,50 @@
+
+
+
+1-to-7 inc=7-aus-1 Zun.|aus 1 Masche 7 Maschen herausstricken: (1re, U, 1re, U, 1re, U, 1re) in die gleiche Masche
+p3so-k1-yo-k1=3.-heben-re-U-re|3. Masche auf der linken Nadel über die ersten 2 Maschen ziehen, 1 rechte Masche, Umschlag, 1 rechte Masche stricken
+times=x
+ctr dbl inc=zentr.-Doppelzunahme|1 Masche re verschr., 1 Masche re in die gleiche Masche, der Faden, der unter und zwischen den 2 neuen Maschen liegt, mit der linken Nadel von links nach rechts aufnehmen und verschränkt abstricken.
+
+
+2/2 LC=2/2 LC|(left cable) 2 Maschen nach links verzopfen: 2 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken
+2/2 RC=2/2 RC|(right cable) 2 Maschen nach rechts verzopfen: 2 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken
+2/2 LPC=2/2 LPC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken. 
+2/2 RPC=2/2 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 2 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken. 
+2/2/2 LC=2/2/2 LC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. auf eine zweite Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel abstricken, 2 M. re von der hinteren Hilfsnadel, 2 M. re von der vorderen Hilfsnadel abstricken.
+2/2/2 RC=2/2/2 C|4 M. auf eine Hilfsnadel nach hinten legen, 2 M. re, 2 M. von der Hilfsnadel auf die linke Nadel legen, Hilfsnadel nach vorn, 2 M. re von der linken Nadel, 2 M. re von der Hilfsnadel abstricken. 
+1/1 LC=1/1 LC|(left cable) 2 Maschen kreuzen (links) : 1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken
+1/1 RC=1/1 RC|(right cable) 2 Maschen kreuzen (rechts) : 1 M. auf eine Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken
+
+
+knit=re M.|rechte Masche stricken
+purl=li M.|linke Masche stricken
+
+repeat from=wiederhole ab
+repeat=wiederhole
+turn=Arbeit wenden
+rows=Reihen
+row=Reihe
+rounds=Runden
+round=Runde
+sl2-k1-p2sso=3 M. dop. überz. zus |3 Maschen doppelt überzogen zusammenstricken: 2 Maschen nacheinander wie zum rechts stricken abheben, eine Masche stricken, die beiden abgehobenen Maschen über die gestrickte Masche ziehen
+ssk=2re überz. zus.|2 Maschen rechts überzogen zusammenstricken
+sts=M.
+to last st,=bis zur letzten Masche,
+twice=2x|die Anweisungen in der Klammer zweimal stricken
+yo=U|Umschlag
+RS=Hinreihe
+
+# regex erlaubt
+
+multiple of (\d+)=Vielfaches von {1}
+k(\d+)tog={1}re zus.|{1} Maschen rechts zusammenstricken
+p(\d+)tog={1}li zus.|{1} Maschen links zusammenstricken
+k(\d+) tbl={1}re verschr.|{1} Maschen rechts verschränkt stricken
+p(\d+) tbl={1}li verschr.|{1} Maschen links verschränkt stricken
+k(\d+)={1}re|{1} rechte Maschen stricken
+p(\d+)={1}li|{1} linke Maschen stricken
+to last (\d+) sts,=bis zu den letzten {1} Maschen,
+sl(\d+) wyib={1} M. abh. (Garn hinten) |{1} Masche(n) abheben wie zum links stricken (Garn hinter der Arbeit)
+
+
