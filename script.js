@@ -10,7 +10,7 @@ let rulesText = [];
 // ====================
 
 function addUsed(usedMap, entry) {
-  const key = `${entry.input}|${entry.output}|${entry.rule}`;
+  const key = entry.rule + "|" + entry.output;
 
   if (!usedMap.has(key)) {
     usedMap.set(key, entry);
@@ -76,6 +76,7 @@ function parseRules(text, isRegex) {
       let [repl, meaning] = (rest || "").split("|");
 
       return {
+        id: pattern.trim() + "=" + repl.trim(),
         pattern: pattern.trim(),
         repl: (repl || "").trim(),
         meaning: (meaning || "").trim(),
@@ -121,7 +122,7 @@ function applyRule(text, rule, usedMap, regex) {
         input: match,
         output: repl,
         meaning: meaning,
-        rule: rule.pattern
+        rule: rule.id
       });
     }
 
