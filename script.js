@@ -1,9 +1,25 @@
 // ====================
-// Regel-Engine
+// Globale Regeln
 // ====================
 
 let rulesRegex = [];
 let rulesText = [];
+
+// ====================
+// Helper: Duplikate verhindern
+// ====================
+
+function addUsed(usedMap, entry) {
+  const key = entry.rule + "→" + entry.output;
+
+  if (!usedMap.has(key)) {
+    usedMap.set(key, entry);
+  }
+}
+
+// ====================
+// Init
+// ====================
 
 document.addEventListener("DOMContentLoaded", async () => {
   const translateBtn = document.getElementById("translateBtn");
@@ -34,9 +50,13 @@ async function loadRules() {
   rulesRegex = parseRules(r1, true);
   rulesText = parseRules(r2, false);
 
-  console.log("Regex-Regeln:", rulesRegex.length);
-  console.log("Text-Regeln:", rulesText.length);
+  console.log("Regex:", rulesRegex.length);
+  console.log("Text:", rulesText.length);
 }
+
+// ====================
+// Parser
+// ====================
 
 function parseRules(text, isRegex) {
   return text
@@ -80,7 +100,7 @@ function buildRegex(rule) {
 // Regel anwenden
 // ====================
 
-function applyRule(text, rule, used, regex) {
+function applyRule(text, rule, usedMap, regex) {
   return text.replace(regex, (...args) => {
     const match = args[0];
     const groups = args.slice(1);
@@ -90,7 +110,7 @@ function applyRule(text, rule, used, regex) {
     });
 
     if (rule.meaning) {
-      used.push({
+      addUsed(usedMap, {
         input: match,
         output: repl,
         meaning: rule.meaning,
@@ -103,16 +123,17 @@ function applyRule(text, rule, used, regex) {
 }
 
 // ====================
-// Smart-Regeln (k3 / p2 etc.)
+// Smart Regeln (k3 / p2)
 // ====================
 
-function smartExpand(text, used) {
+function smartExpand(text, usedMap) {
   return text.replace(/\b([kp])(\d+)\b/gi, (match, type, num) => {
     let repl = "";
 
     if (type.toLowerCase() === "k") {
       repl = `${num}re`;
-      used.push({
+
+      addUsed(usedMap, {
         input: match,
         output: repl,
         meaning: `${num} Maschen rechts stricken`,
@@ -122,7 +143,8 @@ function smartExpand(text, used) {
 
     if (type.toLowerCase() === "p") {
       repl = `${num}li`;
-      used.push({
+
+      addUsed(usedMap, {
         input: match,
         output: repl,
         meaning: `${num} Maschen links stricken`,
@@ -140,43 +162,47 @@ function smartExpand(text, used) {
 
 function translateText() {
   let text = document.getElementById("input").value;
-  let used = [];
+
+  let used = new Map();
 
   if (!text) return;
 
-  // 1. Smart-Regeln
+  // 1. Smart Regeln
   text = smartExpand(text, used);
 
-  // 2. Regex-Regeln
+  // 2. Regex Regeln
   for (let rule of rulesRegex) {
     const regex = buildRegex(rule);
-    if (!regex) continue;
-
-    if (!text.match(regex)) continue;
+    if (!regex || !text.match(regex)) continue;
 
     text = applyRule(text, rule, used, regex);
   }
 
-  // 3. Text-Regeln
+  // 3. Text Regeln
   for (let rule of rulesText) {
     const regex = buildRegex(rule);
-    if (!regex) continue;
-
-    if (!text.match(regex)) continue;
+    if (!regex || !text.match(regex)) continue;
 
     text = applyRule(text, rule, used, regex);
   }
 
-  // 4. Cleanup
   text = finalize(text);
 
-  // 5. Output
+  // ====================
+  // Output
+  // ====================
+
   let output = text;
 
-  if (used.length > 0) {
-    output += "\n\n--- mini-Legende ---\n\n";
-    output += used.map(u => `${u.input} → ${u.output}`).join("\n");
-  }
+  output += "\n\n--- Verwendete Regeln ---\n\n";
+
+  output += Array.from(used.values())
+    .map(u =>
+      u.meaning
+        ? `${u.input} → ${u.output} → ${u.meaning}`
+        : `${u.input} → ${u.output}`
+    )
+    .join("\n");
 
   document.getElementById("output").value = output;
 }
@@ -194,7 +220,7 @@ function finalize(text) {
 }
 
 // ====================
-// UI Actions
+// UI
 // ====================
 
 function clearAll() {
