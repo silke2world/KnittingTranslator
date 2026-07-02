@@ -18,9 +18,9 @@ ctr dbl inc=zentr. Doppelzunahme | 1 M. re verschr., 1 M. re in gleiche M., Fade
 
 # Allgemeine Begriffe
 
-repeat from=wiederhole ab
-repeat=wiederhole
-turn=Arbeit wenden
+and=und
+knit=rechte Maschen
+purl=linke Maschen
 rows=Reihen
 row=Reihe
 Row=Reihe
@@ -28,6 +28,7 @@ rounds=Runden
 round=Runde
 repeat from=wiederhole ab
 repeat=wiederhole
+to last st=bis zur letzten Masche
 turn=Arbeit wenden
 
 
