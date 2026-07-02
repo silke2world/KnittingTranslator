@@ -1,4 +1,9 @@
-let rules = [];
+// ====================
+// Regel-Engine
+// ====================
+
+let rulesRegex = [];
+let rulesText = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   const translateBtn = document.getElementById("translateBtn");
@@ -16,35 +21,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   translateBtn.disabled = false;
 });
 
+// ====================
+// Regeln laden
+// ====================
+
 async function loadRules() {
-  try {
-    const response = await fetch("rules.txt");
-    const text = await response.text();
+  const [r1, r2] = await Promise.all([
+    fetch("rules_regex.txt").then(r => r.text()),
+    fetch("rules_text.txt").then(r => r.text())
+  ]);
 
-    rules = text
-      .split("\n")
-      .map(line => line.trim())
-      .filter(line => line && !line.startsWith("#") && line.includes("="))
-      .map(line => {
-        const [patternPart, rest] = line.split("=");
-        let [repl, meaning] = (rest || "").split("|");
+  rulesRegex = parseRules(r1, true);
+  rulesText = parseRules(r2, false);
 
-        return {
-          pattern: patternPart.trim(),
-          repl: (repl || "").trim(),
-          meaning: (meaning || "").trim(),
-          isRegex: patternPart.includes("(")
-        };
-      })
-      .filter(Boolean);
-
-    rules.sort((a, b) => b.pattern.length - a.pattern.length);
-
-    console.log("Regeln geladen:", rules);
-  } catch (e) {
-    console.error("Fehler beim Laden der Regeln:", e);
-  }
+  console.log("Regex-Regeln:", rulesRegex.length);
+  console.log("Text-Regeln:", rulesText.length);
 }
+
+function parseRules(text, isRegex) {
+  return text
+    .split("\n")
+    .map(l => l.trim())
+    .filter(l => l && !l.startsWith("#") && l.includes("="))
+    .map(line => {
+      const [pattern, rest] = line.split("=");
+      let [repl, meaning] = (rest || "").split("|");
+
+      return {
+        pattern: pattern.trim(),
+        repl: (repl || "").trim(),
+        meaning: (meaning || "").trim(),
+        isRegex
+      };
+    });
+}
+
+// ====================
+// Regex Builder
+// ====================
 
 function buildRegex(rule) {
   try {
@@ -57,17 +71,23 @@ function buildRegex(rule) {
       "gi"
     );
   } catch (e) {
-    console.warn("❌ Regex kaputt übersprungen:", rule.pattern);
+    console.warn("❌ Regex kaputt:", rule.pattern);
     return null;
   }
 }
+
+// ====================
+// Regel anwenden
+// ====================
 
 function applyRule(text, rule, used, regex) {
   return text.replace(regex, (...args) => {
     const match = args[0];
     const groups = args.slice(1);
 
-    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
+    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
+      return groups[i - 1] ?? "";
+    });
 
     if (rule.meaning) {
       used.push({
@@ -81,6 +101,10 @@ function applyRule(text, rule, used, regex) {
     return repl;
   });
 }
+
+// ====================
+// Smart-Regeln (k3 / p2 etc.)
+// ====================
 
 function smartExpand(text, used) {
   return text.replace(/\b([kp])(\d+)\b/gi, (match, type, num) => {
@@ -110,15 +134,21 @@ function smartExpand(text, used) {
   });
 }
 
+// ====================
+// Hauptfunktion
+// ====================
+
 function translateText() {
   let text = document.getElementById("input").value;
-
   let used = [];
 
-  // 🔥 zuerst intelligente Regeln
+  if (!text) return;
+
+  // 1. Smart-Regeln
   text = smartExpand(text, used);
 
-  for (let rule of rules) {
+  // 2. Regex-Regeln
+  for (let rule of rulesRegex) {
     const regex = buildRegex(rule);
     if (!regex) continue;
 
@@ -127,16 +157,33 @@ function translateText() {
     text = applyRule(text, rule, used, regex);
   }
 
+  // 3. Text-Regeln
+  for (let rule of rulesText) {
+    const regex = buildRegex(rule);
+    if (!regex) continue;
+
+    if (!text.match(regex)) continue;
+
+    text = applyRule(text, rule, used, regex);
+  }
+
+  // 4. Cleanup
   text = finalize(text);
 
+  // 5. Output
   let output = text;
 
-  output += "\n\n--- Verwendete Regeln ---\n\n";
-  output += used.map(u => `${u.input} → ${u.output}`).join("\n");
+  if (used.length > 0) {
+    output += "\n\n--- Verwendete Regeln ---\n\n";
+    output += used.map(u => `${u.input} → ${u.output}`).join("\n");
+  }
 
   document.getElementById("output").value = output;
 }
 
+// ====================
+// Cleanup
+// ====================
 
 function finalize(text) {
   return text
@@ -145,6 +192,10 @@ function finalize(text) {
     .map(line => line.trim())
     .join("\n");
 }
+
+// ====================
+// UI Actions
+// ====================
 
 function clearAll() {
   document.getElementById("input").value = "";
