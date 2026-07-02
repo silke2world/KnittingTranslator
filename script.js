@@ -30,11 +30,19 @@ loadRules();
 function translateText() {
   let text = document.getElementById("input").value;
 
-  // einfache Regeln (später erweiterbar wie deine rules.txt)
-  text = text.replace(/\bk(\d+)tog\b/gi, "$1 M. re zus.");
-  text = text.replace(/\bp(\d+)tog\b/gi, "$1 M. li zus.");
-  text = text.replace(/\bk(\d+)\b/gi, "$1 re M.");
-  text = text.replace(/\bp(\d+)\b/gi, "$1 li M.");
+  let used = [];
+
+  rules.forEach(rule => {
+    let regex = new RegExp(rule.pattern, "gi");
+
+    if (regex.test(text)) {
+      if (rule.meaning) {
+        used.push(rule.meaning);
+      }
+    }
+
+    text = text.replace(regex, rule.repl);
+  });
 
   text = finalize(text);
 
