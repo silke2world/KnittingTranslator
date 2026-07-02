@@ -1,4 +1,7 @@
 
+
+text = text.replace(/\*/g, "§STAR§");
+
 let rules = [];
 
 async function loadRules() {
@@ -61,9 +64,15 @@ function translateText() {
   let text = document.getElementById("input").value;
   let used = [];
 
-  // 🔥 Interpreter-Pipeline (wichtig!)
   for (let rule of rules) {
-    text = applyRule(text, rule, used);
+    const regex = new RegExp(rule.pattern, "g");
+
+    let hasMatch = regex.test(text);
+    regex.lastIndex = 0;
+
+    if (hasMatch) {
+      text = applyRule(text, rule, used);
+    }
   }
 
   text = finalize(text);
@@ -72,17 +81,13 @@ function translateText() {
 
   if (used.length > 0) {
     output += "\n\n--- Verwendete Anweisungen ---\n\n";
-
     output += used
-      .map(u =>
-        `${u.input} → ${u.output} → ${u.meaning}`
-      )
+      .map(u => `${u.input} → ${u.output} → ${u.meaning}`)
       .join("\n");
   }
 
   document.getElementById("output").value = output;
 }
-
 
 function finalize(text) {
   return text
@@ -100,3 +105,5 @@ function clearAll() {
   document.getElementById("input").value = "";
   document.getElementById("output").value = "";
 }
+
+text = text.replace(/§STAR§/g, "*");
