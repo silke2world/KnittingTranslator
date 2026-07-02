@@ -22,16 +22,13 @@ repeat from=wiederhole ab
 repeat=wiederhole
 turn=Arbeit wenden
 rows=Reihen
-row=Reihe
+row=Reihe|case-insensitive
 rounds=Runden
 round=Runde
 repeat from=wiederhole ab
 repeat=wiederhole
 turn=Arbeit wenden
-rows=Reihen
-row=Reihe
-rounds=Runden
-round=Runde
+
 
 # regex 
 
