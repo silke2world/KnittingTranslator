@@ -55,17 +55,7 @@ function translateText() {
   let used = [];
 
   rules.forEach(rule => {
-    let regex = new RegExp(rule.pattern, "gi");
-
-    let matches = [...text.matchAll(regex)];
-
-    if (matches.length > 0 && rule.meaning) {
-      matches.forEach(m => {
-        used.push(`${m[0]} → ${rule.repl} → ${rule.meaning}`);
-      });
-    }
-
-    text = text.replace(regex, rule.repl);
+    text = applyRule(text, rule, used);
   });
 
   text = finalize(text);
