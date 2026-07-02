@@ -1,6 +1,5 @@
 
 
-text = text.replace(/\*/g, "§STAR§");
 
 let rules = [];
 
@@ -64,16 +63,30 @@ function translateText() {
   let text = document.getElementById("input").value;
   let used = [];
 
+  text = text.replace(/\*/g, "§STAR§");
+
   for (let rule of rules) {
     const regex = new RegExp(rule.pattern, "g");
 
-    let hasMatch = regex.test(text);
-    regex.lastIndex = 0;
-
-    if (hasMatch) {
+    if (text.match(regex)) {
       text = applyRule(text, rule, used);
     }
   }
+
+  text = finalize(text);
+  text = text.replace(/§STAR§/g, "*");
+
+  let output = text;
+
+  if (used.length > 0) {
+    output += "\n\n--- Verwendete Anweisungen ---\n\n";
+    output += used
+      .map(u => `${u.input} → ${u.output} → ${u.meaning}`)
+      .join("\n");
+  }
+
+  document.getElementById("output").value = output;
+}
 
   text = finalize(text);
 
@@ -106,4 +119,3 @@ function clearAll() {
   document.getElementById("output").value = "";
 }
 
-text = text.replace(/§STAR§/g, "*");
