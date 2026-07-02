@@ -106,8 +106,8 @@ function translateText() {
   if (used.length === 0) {
     output += "\n\n⚠️ Keine Regel hat gegriffen";
   } else {
-    output += "\n\n--- Verwendete Regeln ---\n\n";
-    output += used.map(u => `${u.input} → ${u.output}`).join("\n");
+    output += "\n\n--- mini-Legende ---\n\n";
+    output += used.map(u => `${u.input} → ${u.output} → ${u.meaning`).join("\n");
   }
 
   document.getElementById("output").value = output;
