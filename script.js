@@ -174,7 +174,7 @@ function translateText() {
   let output = text;
 
   if (used.length > 0) {
-    output += "\n\n--- Verwendete Regeln ---\n\n";
+    output += "\n\n--- mini-Legende ---\n\n";
     output += used.map(u => `${u.input} → ${u.output}`).join("\n");
   }
 
