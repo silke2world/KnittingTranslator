@@ -26,6 +26,29 @@ async function loadRules() {
 // automatisch beim Laden
 loadRules(); 
 
+function applyRule(text, rule, used) {
+  const regex = new RegExp(rule.pattern, "gi");
+
+  return text.replace(regex, (...args) => {
+    const match = args[0];
+
+    // Python-style replacement ($1, $2, ...)
+    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
+      return args[parseInt(i)] ?? "";
+    });
+
+    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
+      return args[parseInt(i)] ?? "";
+    });
+
+    if (rule.meaning) {
+      used.push(`${match} → ${repl} → ${meaning}`);
+    }
+
+    return repl;
+  });
+}
+
 
 function translateText() {
   let text = document.getElementById("input").value;
