@@ -10,7 +10,7 @@ let rulesText = [];
 // ====================
 
 function addUsed(usedMap, entry) {
-  const key = entry.rule + "→" + entry.output;
+  const key = `${entry.input}|${entry.output}|${entry.rule}`;
 
   if (!usedMap.has(key)) {
     usedMap.set(key, entry);
@@ -114,7 +114,7 @@ function applyRule(text, rule, usedMap, regex) {
         input: match,
         output: repl,
         meaning: rule.meaning,
-        rule: rule.pattern
+        rule: rule.pattern + "|" + rule.repl
       });
     }
 
@@ -195,7 +195,9 @@ function translateText() {
   let output = text;
 
   output += "\n\n--- mini-Legende ---\n\n";
-
+  
+  console.log([...used.values()]);
+  
   output += Array.from(used.values())
     .map(u =>
       u.meaning
