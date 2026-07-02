@@ -22,16 +22,16 @@ async function loadRules() {
       const [patternPart, rest] = line.split("=");
       let [repl, meaning] = (rest || "").split("|");
 
-      const isRegex = patternPart.includes("("); // stabiler als vorher
+      if (!patternPart) return null;
 
       return {
         pattern: patternPart.trim(),
         repl: (repl || "").trim(),
         meaning: (meaning || "").trim(),
-        isRegex,
-        length: patternPart.length
+        isRegex: patternPart.includes("(")
       };
-    });
+    })
+    .filter(Boolean);
 
   // wichtig: spezifische Regeln zuerst
   rules.sort((a, b) => b.length - a.length);
@@ -40,37 +40,19 @@ async function loadRules() {
 }
 
 function buildRegex(rule) {
-  if (rule.isRegex) {
-    try {
+  try {
+    if (rule.isRegex) {
       return new RegExp(rule.pattern, "g");
-    } catch (e) {
-      console.warn("Ungültige Regex-Regel:", rule.pattern);
-      return null;
     }
+
+    return new RegExp(
+      rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+      "g"
+    );
+  } catch (e) {
+    console.warn("❌ Ungültige Regex-Regel übersprungen:", rule.pattern);
+    return null;
   }
-
-  return new RegExp(rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
-}
-
-function applyRule(text, rule, used, regex) {
-  return text.replace(regex, (...args) => {
-    const match = args[0];
-    const groups = args.slice(1);
-
-    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
-    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
-
-    if (rule.meaning) {
-      used.push({
-        input: match,
-        output: repl,
-        meaning,
-        rule: rule.pattern
-      });
-    }
-
-    return repl;
-  });
 }
 
 function translateText() {
