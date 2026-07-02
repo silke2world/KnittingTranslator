@@ -1,42 +1,65 @@
 let rules = [];
 
-// 🔒 Button erst aktivieren wenn Regeln geladen sind
-window.addEventListener("DOMContentLoaded", async () => {
-  const btn = document.getElementById("translateBtn");
-  if (btn) btn.disabled = true;
+document.addEventListener("DOMContentLoaded", async () => {
+  const translateBtn = document.getElementById("translateBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const copyBtn = document.getElementById("copyBtn");
+
+  translateBtn.disabled = true;
+
+  translateBtn.addEventListener("click", translateText);
+  clearBtn.addEventListener("click", clearAll);
+  copyBtn.addEventListener("click", copyText);
 
   await loadRules();
 
-  if (btn) btn.disabled = false;
+  translateBtn.disabled = false;
 });
 
 async function loadRules() {
-  const response = await fetch("rules.txt");
-  const text = await response.text();
+  try {
+    const response = await fetch("rules.txt");
+    const text = await response.text();
 
-  rules = text
-    .split("\n")
-    .map(line => line.trim())
-    .filter(line => line && !line.startsWith("#") && line.includes("="))
-    .map(line => {
-      const [patternPart, rest] = line.split("=");
-      let [repl, meaning] = (rest || "").split("|");
+    rules = text
+      .split("\n")
+      .map(line => line.trim())
+      .filter(line => line && !line.startsWith("#") && line.includes("="))
+      .map(line => {
+        const [patternPart, rest] = line.split("=");
+        let [repl, meaning] = (rest || "").split("|");
 
-      if (!patternPart) return null;
+        return {
+          pattern: patternPart.trim(),
+          repl: (repl || "").trim(),
+          meaning: (meaning || "").trim(),
+          isRegex: patternPart.includes("(")
+        };
+      })
+      .filter(Boolean);
 
-      return {
-        pattern: patternPart.trim(),
-        repl: (repl || "").trim(),
-        meaning: (meaning || "").trim(),
-        isRegex: patternPart.includes("(")
-      };
-    })
-    .filter(Boolean);
+    rules.sort((a, b) => b.pattern.length - a.pattern.length);
 
-  // wichtig: spezifische Regeln zuerst
-  rules.sort((a, b) => b.length - a.length);
+    console.log("Regeln geladen:", rules);
+  } catch (e) {
+    console.error("Fehler beim Laden der Regeln:", e);
+  }
+}
 
-  console.log("Regeln geladen:", rules);
+function buildRegex(rule) {
+  try {
+    if (rule.isRegex) {
+      return new RegExp(rule.pattern, "gi");
+    }
+
+    return new RegExp(
+      "\\b" + rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b",
+      "gi"
+    );
+  } catch (e) {
+    console.warn("Ungültige Regel:", rule.pattern);
+    return null;
+  }
 }
 
 function applyRule(text, rule, used, regex) {
@@ -44,21 +67,13 @@ function applyRule(text, rule, used, regex) {
     const match = args[0];
     const groups = args.slice(1);
 
-    // 🔁 Platzhalter $1, $2 usw. ersetzen
-    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
-      return groups[i - 1] ?? "";
-    });
+    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
 
-    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
-      return groups[i - 1] ?? "";
-    });
-
-    // 📌 Logging nur wenn Bedeutung vorhanden
     if (rule.meaning) {
       used.push({
         input: match,
         output: repl,
-        meaning: meaning,
+        meaning: rule.meaning,
         rule: rule.pattern
       });
     }
@@ -67,56 +82,32 @@ function applyRule(text, rule, used, regex) {
   });
 }
 
-
-function buildRegex(rule) {
-  try {
-    if (rule.isRegex) {
-      return new RegExp(rule.pattern, "gi");
-    }
-
-    // 🔥 Wortgrenzen + case insensitive
-    return new RegExp(
-      "\\b" + rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b",
-      "gi"
-    );
-  } catch (e) {
-    console.warn("❌ Ungültige Regel:", rule.pattern);
-    return null;
-  }
-}
-
 function translateText() {
   let text = document.getElementById("input").value;
 
-  if (!rules || rules.length === 0) {
-    document.getElementById("output").value = "⚠️ Regeln noch nicht geladen";
+  if (!rules.length) {
+    document.getElementById("output").value = "⚠️ Regeln nicht geladen";
     return;
   }
 
   let used = [];
 
-  console.log("INPUT:", text);
-
   for (let rule of rules) {
     const regex = buildRegex(rule);
     if (!regex) continue;
 
-    const hasMatch = text.match(regex);
-    if (!hasMatch) continue;
+    if (!text.match(regex)) continue;
 
-    regex.lastIndex = 0;
     text = applyRule(text, rule, used, regex);
   }
 
-  text = finalize(text);
-
   let output = text;
 
-  if (used.length > 0) {
+  if (used.length === 0) {
+    output += "\n\n⚠️ Keine Regel hat gegriffen";
+  } else {
     output += "\n\n--- Verwendete Regeln ---\n\n";
     output += used.map(u => `${u.input} → ${u.output}`).join("\n");
-  } else {
-    output += "\n\n⚠️ Keine Regel hat gegriffen";
   }
 
   document.getElementById("output").value = output;
@@ -130,14 +121,13 @@ function finalize(text) {
     .join("\n");
 }
 
-function copyText() {
-  const text = document.getElementById("output").value;
-  navigator.clipboard.writeText(text);
-}
-
 function clearAll() {
-  console.log("CLEAR CLICKED");
-
   document.getElementById("input").value = "";
   document.getElementById("output").value = "";
+}
+
+function copyText() {
+  navigator.clipboard.writeText(
+    document.getElementById("output").value
+  );
 }
