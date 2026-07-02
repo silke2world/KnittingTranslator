@@ -42,7 +42,12 @@ function applyRule(text, rule, used) {
     });
 
     if (rule.meaning) {
-      used.push(`${match} → ${repl} → ${meaning}`);
+      used.push({
+        input: match,
+        output: repl,
+        meaning: meaning,
+        rule: rule.pattern
+      });
     }
 
     return repl;
@@ -54,9 +59,10 @@ function translateText() {
   let text = document.getElementById("input").value;
   let used = [];
 
-  rules.forEach(rule => {
+  // 🔥 Interpreter-Pipeline (wichtig!)
+  for (let rule of rules) {
     text = applyRule(text, rule, used);
-  });
+  }
 
   text = finalize(text);
 
@@ -64,11 +70,15 @@ function translateText() {
 
   if (used.length > 0) {
     output += "\n\n--- Verwendete Anweisungen ---\n\n";
-    output += [...new Set(used)].join("\n");
+
+    output += used
+      .map(u => `${u.input} → ${u.output} → ${u.meaning}`)
+      .join("\n");
   }
 
   document.getElementById("output").value = output;
 }
+
 
 function finalize(text) {
   return text
