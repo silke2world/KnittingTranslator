@@ -82,15 +82,41 @@ function applyRule(text, rule, used, regex) {
   });
 }
 
+function smartExpand(text, used) {
+  return text.replace(/\b([kp])(\d+)\b/gi, (match, type, num) => {
+    let repl = "";
+
+    if (type.toLowerCase() === "k") {
+      repl = `${num}re`;
+      used.push({
+        input: match,
+        output: repl,
+        meaning: `${num} Maschen rechts stricken`,
+        rule: "smart-k"
+      });
+    }
+
+    if (type.toLowerCase() === "p") {
+      repl = `${num}li`;
+      used.push({
+        input: match,
+        output: repl,
+        meaning: `${num} Maschen links stricken`,
+        rule: "smart-p"
+      });
+    }
+
+    return repl;
+  });
+}
+
 function translateText() {
   let text = document.getElementById("input").value;
 
-  if (!rules.length) {
-    document.getElementById("output").value = "⚠️ Regeln nicht geladen";
-    return;
-  }
-
   let used = [];
+
+  // 🔥 zuerst intelligente Regeln
+  text = smartExpand(text, used);
 
   for (let rule of rules) {
     const regex = buildRegex(rule);
@@ -101,17 +127,16 @@ function translateText() {
     text = applyRule(text, rule, used, regex);
   }
 
+  text = finalize(text);
+
   let output = text;
 
-  if (used.length === 0) {
-    output += "\n\n⚠️ Keine Regel hat gegriffen";
-  } else {
-    output += "\n\n--- mini-Legende ---\n\n";
-    output += used.map(u => `${u.input} → ${u.output} → ${u.meaning`).join("\n");
-  }
+  output += "\n\n--- Verwendete Regeln ---\n\n";
+  output += used.map(u => `${u.input} → ${u.output}`).join("\n");
 
   document.getElementById("output").value = output;
 }
+
 
 function finalize(text) {
   return text
