@@ -46,7 +46,9 @@ function applyRule(text, rule, used) {
         input: match,
         output: repl,
         meaning: meaning,
-        rule: rule.pattern
+        rule: rule.pattern,
+        rawRepl: rule.repl,
+        rawMeaning: rule.meaning
       });
     }
 
@@ -72,7 +74,9 @@ function translateText() {
     output += "\n\n--- Verwendete Anweisungen ---\n\n";
 
     output += used
-      .map(u => `${u.input} → ${u.output} → ${u.meaning}`)
+      .map(u =>
+        `${u.input} → ${u.output} → ${u.meaning}`
+      )
       .join("\n");
   }
 
