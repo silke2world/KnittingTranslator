@@ -1,3 +1,32 @@
+
+let rules = [];
+
+async function loadRules() {
+  const response = await fetch("rules.txt");
+  const text = await response.text();
+
+  rules = text
+    .split("\n")
+    .map(line => line.trim())
+    .filter(line => line && !line.startsWith("#") && line.includes("="))
+    .map(line => {
+      const [patternPart, rest] = line.split("=");
+      let [repl, meaning] = rest.split("|");
+
+      return {
+        pattern: patternPart.trim(),
+        repl: repl.trim(),
+        meaning: meaning ? meaning.trim() : ""
+      };
+    });
+
+  console.log("Regeln geladen:", rules);
+}
+
+// automatisch beim Laden
+loadRules(); 
+
+
 function translateText() {
   let text = document.getElementById("input").value;
 
