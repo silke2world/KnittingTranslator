@@ -29,17 +29,26 @@ loadRules();
 function applyRule(text, rule, used) {
   const regex = new RegExp(rule.pattern, "gi");
 
-  return text.replace(regex, (...args) => {
-    const match = args[0];
+  return text.replace(regex, function () {
 
-    // Python-style replacement ($1, $2, ...)
-    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
-      return args[parseInt(i)] ?? "";
+    let match = arguments[0];
+
+    // JS groups: arguments[1], arguments[2], ...
+    let repl = rule.repl.replace(/\$(\d+)/g, function (_, i) {
+      return arguments[parseInt(i)] || arguments[parseInt(i)] === 0
+        ? arguments[parseInt(i)]
+        : arguments.callee.caller.arguments[parseInt(i)] || "";
     });
 
-    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
-      return args[parseInt(i)] ?? "";
+    let meaning = rule.meaning.replace(/\$(\d+)/g, function (_, i) {
+      return arguments.callee.caller.arguments[parseInt(i)] || "";
     });
+
+    // Fallback (robust version)
+    const groups = Array.from(arguments).slice(1);
+
+    repl = rule.repl.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
+    meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
 
     if (rule.meaning) {
       used.push(`${match} → ${repl} → ${meaning}`);
