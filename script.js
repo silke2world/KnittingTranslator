@@ -194,7 +194,7 @@ function translateText() {
 
   let output = text;
 
-  output += "\n\n--- Verwendete Regeln ---\n\n";
+  output += "\n\n--- mini-Legende ---\n\n";
 
   output += Array.from(used.values())
     .map(u =>
