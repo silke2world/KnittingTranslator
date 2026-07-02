@@ -31,5 +31,7 @@ rounds=Runden
 round=Runde
 repeat from=wiederhole ab
 repeat=wiederhole
+ssk=2 re überz. zus|2 Maschen rechts überzogen zusammenstricken
 to last st=bis zur letzten Masche
 turn=Arbeit wenden
+yo=Umschlag
