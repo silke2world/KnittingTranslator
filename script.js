@@ -18,6 +18,14 @@ function addUsed(usedMap, entry) {
 }
 
 // ====================
+// Helper: Placeholder Resolver
+// ====================
+
+function resolve(str, groups) {
+  return str.replace(/\$(\d+)/g, (_, i) => groups[i - 1] ?? "");
+}
+
+// ====================
 // Init
 // ====================
 
@@ -105,13 +113,8 @@ function applyRule(text, rule, usedMap, regex) {
     const match = args[0];
     const groups = args.slice(1);
 
-    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
-      return groups[i - 1] ?? "";
-    });
-
-    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
-      return groups[i - 1] ?? "";
-    });
+    const repl = resolve(rule.repl, groups);
+    const meaning = resolve(rule.meaning, groups);
 
     if (rule.meaning) {
       addUsed(usedMap, {
@@ -119,12 +122,13 @@ function applyRule(text, rule, usedMap, regex) {
         output: repl,
         meaning: meaning,
         rule: rule.pattern
-  });
-}
+      });
+    }
 
     return repl;
   });
 }
+
 
 // ====================
 // Smart Regeln (k3 / p2)
