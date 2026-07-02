@@ -39,6 +39,35 @@ async function loadRules() {
   console.log("Regeln geladen:", rules);
 }
 
+function applyRule(text, rule, used, regex) {
+  return text.replace(regex, (...args) => {
+    const match = args[0];
+    const groups = args.slice(1);
+
+    // 🔁 Platzhalter $1, $2 usw. ersetzen
+    let repl = rule.repl.replace(/\$(\d+)/g, (_, i) => {
+      return groups[i - 1] ?? "";
+    });
+
+    let meaning = rule.meaning.replace(/\$(\d+)/g, (_, i) => {
+      return groups[i - 1] ?? "";
+    });
+
+    // 📌 Logging nur wenn Bedeutung vorhanden
+    if (rule.meaning) {
+      used.push({
+        input: match,
+        output: repl,
+        meaning: meaning,
+        rule: rule.pattern
+      });
+    }
+
+    return repl;
+  });
+}
+
+
 function buildRegex(rule) {
   try {
     if (rule.isRegex) {
