@@ -57,7 +57,7 @@ function buildRegex(rule) {
       "gi"
     );
   } catch (e) {
-    console.warn("Ungültige Regel:", rule.pattern);
+    console.warn("❌ Regex kaputt übersprungen:", rule.pattern);
     return null;
   }
 }
