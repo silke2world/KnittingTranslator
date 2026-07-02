@@ -1,7 +1,14 @@
-
-
-
 let rules = [];
+
+// 🔒 Button erst aktivieren wenn Regeln geladen sind
+window.addEventListener("DOMContentLoaded", async () => {
+  const btn = document.getElementById("translateBtn");
+  if (btn) btn.disabled = true;
+
+  await loadRules();
+
+  if (btn) btn.disabled = false;
+});
 
 async function loadRules() {
   const response = await fetch("rules.txt");
@@ -13,9 +20,9 @@ async function loadRules() {
     .filter(line => line && !line.startsWith("#") && line.includes("="))
     .map(line => {
       const [patternPart, rest] = line.split("=");
-      let [repl, meaning] = rest.split("|");
+      let [repl, meaning] = (rest || "").split("|");
 
-      const isRegex = /[()\\[\\].+*?^$|]/.test(patternPart);
+      const isRegex = patternPart.includes("("); // stabiler als vorher
 
       return {
         pattern: patternPart.trim(),
@@ -26,21 +33,26 @@ async function loadRules() {
       };
     });
 
-  // 🔥 wichtig: längere / spezifischere Regeln zuerst
+  // wichtig: spezifische Regeln zuerst
   rules.sort((a, b) => b.length - a.length);
 
   console.log("Regeln geladen:", rules);
 }
 
+function buildRegex(rule) {
+  if (rule.isRegex) {
+    try {
+      return new RegExp(rule.pattern, "g");
+    } catch (e) {
+      console.warn("Ungültige Regex-Regel:", rule.pattern);
+      return null;
+    }
+  }
 
-// automatisch beim Laden
-loadRules();
+  return new RegExp(rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+}
 
-
-function applyRule(text, rule, used) {
-  const regex = buildRegex(rule);
-  if (!regex) return text;
-
+function applyRule(text, rule, used, regex) {
   return text.replace(regex, (...args) => {
     const match = args[0];
     const groups = args.slice(1);
@@ -63,6 +75,12 @@ function applyRule(text, rule, used) {
 
 function translateText() {
   let text = document.getElementById("input").value;
+
+  if (!rules || rules.length === 0) {
+    document.getElementById("output").value = "⚠️ Regeln noch nicht geladen";
+    return;
+  }
+
   let used = [];
 
   console.log("INPUT:", text);
@@ -71,10 +89,11 @@ function translateText() {
     const regex = buildRegex(rule);
     if (!regex) continue;
 
-    if (regex.test(text)) {
-      regex.lastIndex = 0;
-      text = applyRule(text, rule, used);
-    }
+    const hasMatch = text.match(regex);
+    if (!hasMatch) continue;
+
+    regex.lastIndex = 0;
+    text = applyRule(text, rule, used, regex);
   }
 
   text = finalize(text);
@@ -83,30 +102,13 @@ function translateText() {
 
   if (used.length > 0) {
     output += "\n\n--- Verwendete Regeln ---\n\n";
-    output += used
-      .map(u => `${u.input} → ${u.output}`)
-      .join("\n");
+    output += used.map(u => `${u.input} → ${u.output}`).join("\n");
   } else {
     output += "\n\n⚠️ Keine Regel hat gegriffen";
   }
 
   document.getElementById("output").value = output;
 }
-
-function buildRegex(rule) {
-  if (rule.isRegex) {
-    try {
-      return new RegExp(rule.pattern, "g");
-    } catch (e) {
-      console.warn("Ungültige Regex-Regel:", rule.pattern);
-      return null;
-    }
-  }
-
-  // Plain text → sicher escapen
-  return new RegExp(rule.pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
-}
-
 
 function finalize(text) {
   return text
@@ -125,4 +127,3 @@ function clearAll() {
   document.getElementById("input").value = "";
   document.getElementById("output").value = "";
 }
-
