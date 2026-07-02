@@ -10,7 +10,10 @@ let rulesText = [];
 // ====================
 
 function addUsed(usedMap, entry) {
-  const key = entry.rule + "|" + entry.output;
+  const key =
+    entry.input.toLowerCase().trim() + "|" +
+    entry.output.toLowerCase().trim() + "|" +
+    entry.meaning.toLowerCase().trim();
 
   if (!usedMap.has(key)) {
     usedMap.set(key, entry);
