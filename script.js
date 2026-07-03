@@ -217,8 +217,8 @@ function translateText() {
   output += Array.from(used.values())
     .map(u =>
       u.meaning
-        ? `**${u.input} → ${u.output}** → ${u.meaning}`
-        : `**${u.input} → ${u.output}**`
+        ? `**${u.input} → ${u.output}** → ${u.meaning}    `
+        : `**${u.input} → ${u.output}**    `
     )
     .join("\n");
 
