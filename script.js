@@ -1,3 +1,5 @@
+console.log("script.js Version 2026-07-03 8:36");
+
 // ====================
 // Globale Regeln
 // ====================
