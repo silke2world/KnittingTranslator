@@ -23,7 +23,6 @@ repeat from=wiederhole ab
 repeat=wiederhole
 ssk=2 re überz. zus|2 Maschen rechts überzogen zusammenstricken
 st=M.|Masche
-sts)=M.
 to last st=bis zur letzten Masche
 turn=Arbeit wenden
 twice=2x|zweimal die Anweisungen in der Klammer stricken
