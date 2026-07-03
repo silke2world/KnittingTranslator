@@ -9,16 +9,6 @@ ctr dbl inc=zentr. Doppelzunahme | 1 M. re verschr., 1 M. re in gleiche M., Fade
 RS=Hinreihe
 WS=Rückreihe
 
-
-# Cables
-
-2/2 LC=2/2 LC|(left cable) 2 M. nach links verzopfen: 2 M. auf Hilfsnadel vorn, 2 M. re, 2 M. von Hilfsnadel
-2/2 RC=2/2 RC|(right cable) 2 M. nach rechts verzopfen: 2 M. auf Hilfsnadel hinten, 2 M. re, 2 M. von Hilfsnadel
-2/2 LPC=2/2 LPC|2 M. vorn, 2 M. li, 2 M. re
-2/2 RPC=2/2 RPC|2 M. hinten, 2 M. li, 2 M. re
-1/1 LC=1/1 LC|(left cable) 1 M. vorn, 1 M. re, 1 M. re
-1/1 RC=1/1 RC|(right cable) 1 M. hinten, 1 M. re, 1 M. re
-
 # Allgemeine Begriffe
 
 and=und
@@ -36,3 +26,132 @@ to last st=bis zur letzten Masche
 turn=Arbeit wenden
 twice=2x|zweimal die Anweisungen in der Klammer stricken
 yo=U|Umschlag
+
+# Zunahmen
+
+incL = incL|Lifted increase to left: hochgezogene Zunahme nach links: die Masche zwei Reihen unter der ersten Masche auf der rechten Nadel auf die linke Nadel geben und rechts abstricken.
+incLp = incLp|Purled lifted increase to left: hochgezogene linke Zunahme nach links: die Masche zwei Reihen unter der ersten Masche auf der rechten Nadel auf die linke Nadel geben und links abstricken.
+incR = incR|Lifted increase to right: hochgezogene Zunahme nach rechts: die Masche in der Reihe unter der ersten Masche auf der linken Nadel rechts abstricken.
+incRp = incRp|Purled lifted increase to right: hochgezogene linke Zunahme nach rechts: die Masche in der Reihe unter der ersten Masche auf der linken Nadel links abstricken.
+kfb =kfb |Knit front and back: Masche re abstricken, nicht von der Nadel gleiten lassen, gleiche Masche re verschränkt abstricken.
+M1L =M1L |Make 1 left: linke Nadel von vorn nach hinten unter den Querfaden schieben, dann wie eine rechts verschränkte Masche abstricken.
+M1Lp = M1Lp|Make 1 left purlwise: linke Nadel von vorn nach hinten unter den Querfaden schieben, dann wie eine links verschränkte Masche abstricken.
+M1R = M1R|Make 1 right: linke Nadel von hinten nach vorn unter den Querfaden schieben, dann wie eine rechte Masche abstricken.
+M1Rp = M1Rp|Make 1 right purlwise: linke Nadel von hinten nach vorn unter den Querfaden schieben, dann wie eine linke Masche abstricken.
+
+kfb=kfb|knit front back: 1 Masche rechts stricken und aus derselben Masche noch 1 Masche rechts verschränkt stricken.
+pfb=pfb|purl front back: 1 Masche links stricken und aus derselben Masche noch 1 Masche links verschränkt stricken.
+
+(k1, p1) in next st=(1re, 1li) in nächste Masche|(1re, 1li) in die nächste Masche
+(p1, k1) in next st=(1li, 1re) in nächste Masche|(1li, 1re) in die nächste Masche
+
+ctr dbl inc=ctr dbl inc (Vorderseite)
+
+(k1, p1, k1) in next st=(1re, 1li, 1re) in nächste Masche|(1re, 1li, 1re) in die nächste Masche
+(p1, k1, p1) in next st=(1li, 1re, 1li) in nächste Masche|(1li, 1re, 1li) in die nächste Masche
+
+(k1, yo, k1) in next st=(1re, U, 1re) in nächste Masche|(1re, Umschlag, 1re) in die nächste Masche
+(p1, yo, p1) in next st=(1li, U, 1li) in nächste Masche|(1li, Umschlag, 1li) in die nächste Masche
+
+1-to-4 inc=aus 1 M. 4 M. str.|aus 1 Masche 4 Maschen heraus stricken
+1-to-5 inc=aus 1 M. 5 M. str.|aus 1 Masche 5 Maschen heraus stricken
+1-to-6 inc=aus 1 M. 6 M. str.|aus 1 Masche 6 Maschen heraus stricken
+1-to-7 inc=aus 1 M. 7 M. str.|aus 1 Masche 7 Maschen heraus stricken
+1-to-8 inc=aus 1 M. 8 M. str.|aus 1 Masche 8 Maschen heraus stricken
+1-to-9 inc=aus 1 M. 9 M. str.|aus 1 Masche 9 Maschen heraus stricken
+
+CO=anschlagen|cast on: Maschen anschlagen
+
+# Cables
+
+1/1 LC=1/1 LC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/1 LPC=1/1 LPC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/1 LT=1/1 LT|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re verschr von der linken Nadel abstricken, 1 M. re verschr von der Hilfsnadel abstricken.
+1/1 LPT=1/1 LPT|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 1 M. re verschr von der Hilfsnadel abstricken.
+1/1 LSC=1/1 LSC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 1 M. von der Hilfsnadel abheben (Faden hinter der Arbeit).
+1/1 LSAC=1/1 LSAC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abheben (Faden hinter der Arbeit), 1 M. von der Hilfsnadel abheben (Faden hinter der Arbeit).
+
+1/2 LC=1/2 LC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/2 LPC=1/2 LPC|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/2 LT=1/2 LT|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. re verschr von der linken Nadel abstricken, 1 M. re verschr von der Hilfsnadel abstricken.
+1/2 LPT=1/2 LPT|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 1 M. re verschr von der Hilfsnadel abstricken.
+1/2 LSC=1/2 LSC|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 1 M. von der Hilfsnadel abheben (Faden hinter der Arbeit).
+
+1/3 LC=1/3 LC|1 M. auf eine Hilfsnadel nach vorn legen, 3 M. re von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/3 LPC=1/3 LPC|1 M. auf eine Hilfsnadel nach vorn legen, 3 M. li von der linken Nadel abstricken, 1 M. re von der Hilfsnadel abstricken.
+1/3 LSC=1/3 LSC|1 M. auf eine Hilfsnadel nach vorn legen, 3 M. re von der linken Nadel abstricken, 1 M. von der Hilfsnadel abheben (Faden hinter der Arbeit).
+
+1/1/1 LC=1/1/1 LC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel abstricken, 1 M. re von der hinteren Hilfsnadel abstricken, 1 M. re von der vorderen Hilfsnadel abstricken.
+1/1/1 LPC=1/1/1 LPC|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel abstricken, 1 M. li von der hinteren Hilfsnadel abstricken, 1 M. re von der vorderen Hilfsnadel abstricken.
+1/1/1 LT=1/1/1 LT|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re verschr von der linken Nadel abstricken, 1 M. re verschr von der hinteren Hilfsnadel abstricken, 1 M. re verschr von der vorderen Hilfsnadel abstricken.
+1/1/1 LPT=1/1/1 LPT|1 M. auf eine Hilfsnadel nach vorn legen, 1 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re verschr von der linken Nadel abstricken, 1 M. li von der hinteren Hilfsnadel abstricken, 1 M. re verschr von der vorderen Hilfsnadel abstricken.
+
+1/2/1 LC=1/2/1 LC|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel abstricken, 2 M. re von der hinteren Hilfsnadel abstricken, 1 M. re von der vorderen Hilfsnadel abstricken.
+1/2/1 LPC=1/2/1 LPC|1 M. auf eine Hilfsnadel nach vorn legen, 2 M. auf eine zweite Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel abstricken, 2 M. li von der hinteren Hilfsnadel abstricken, 1 M. re von der vorderen Hilfsnadel abstricken.
+
+2/1 LC=2/1 LC|2 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+2/1 LPC=2/1 LPC|2 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+2/1 LT=2/1 LT|2 M. auf eine Hilfsnadel nach vorn legen, 1 M. re verschr von der linken Nadel abstricken, 2 M. re verschr von der Hilfsnadel abstricken.
+2/1 LPT=2/1 LPT|2 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 2 M. re verschr von der Hilfsnadel abstricken.
+
+2/2 LC=2/2 LC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+2/2 LPC=2/2 LPC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+
+3/1 LC=3/1 LC|3 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
+3/1 LPC=3/1 LPC|3 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
+
+3/2 LC=3/2 LC|3 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
+3/2 LPC=3/2 LPC|3 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
+
+3/3 LC=3/3 LC|3 M. auf eine Hilfsnadel nach vorn legen, 3 M. re von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
+
+4/1 LC=4/1 LC|4 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 4 M. re von der Hilfsnadel abstricken.
+4/2 LC=4/2 LC|4 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 4 M. re von der Hilfsnadel abstricken.
+4/3 LC=4/3 LC|4 M. auf eine Hilfsnadel nach vorn legen, 3 M. re von der linken Nadel abstricken, 4 M. re von der Hilfsnadel abstricken.
+4/4 LC=4/4 LC|4 M. auf eine Hilfsnadel nach vorn legen, 4 M. re von der linken Nadel abstricken, 4 M. re von der Hilfsnadel abstricken.
+
+1/1 RC=1/1 RC|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 1 M. re von der Hilfsnadel abstricken.
+1/1 RPC=1/1 RPC|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. re von der linken Nadel, 1 M. li von der Hilfsnadel abstricken.
+1/1 RT=1/1 RT|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 1 M. re verschr von der Hilfsnadel abstricken.
+1/1 RPT=1/1 RPT|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 1 M. li von der Hilfsnadel abstricken.
+1/1 RSC=1/1 RSC|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. abh. mit Garn hinten, 1 M. re von der Hilfsnadel abstricken.
+1/1 RSAC=1/1 RSAC|1 M. auf eine Hilfsnadel nach hinten legen, 1 M. abh. mit Garn hinten, 1 M. abh. mit Garn hinten von der Hilfsnadel abstricken.
+
+1/2 RC=1/2 RC|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 2 M. re von der Hilfsnadel abstricken.
+1/2 RPC=1/2 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 2 M. li von der Hilfsnadel abstricken.
+1/2 RT=1/2 RT|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 2 M. re verschr von der Hilfsnadel abstricken.
+1/2 RPT=1/2 RPT|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 2 M. li von der Hilfsnadel abstricken.
+1/2 RSC=1/2 RSC|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. abh. mit Garn hinten, 2 M. re von der Hilfsnadel abstricken.
+
+1/3 RC=1/3 RC|3 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 3 M. re von der Hilfsnadel abstricken.
+1/3 RPC=1/3 RPC|3 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 3 M. li von der Hilfsnadel abstricken.
+1/3 RSC=1/3 RSC|3 M. auf eine Hilfsnadel nach hinten legen, 1 M. abh. mit Garn hinten, 3 M. re von der Hilfsnadel abstricken.
+
+1/1/1 RC=1/1/1 RC|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 1 M. von der Hilfsnadel auf die linke Nadel legen, 1 M. re, 1 M. re von der Hilfsnadel abstricken.
+1/1/1 RPC=1/1/1 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 1 M. von der Hilfsnadel auf die linke Nadel legen, 1 M. li, 1 M. re von der Hilfsnadel abstricken.
+1/1/1 RT=1/1/1 RT|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 1 M. von der Hilfsnadel auf die linke Nadel legen, 1 M. re verschr, 1 M. re verschr von der Hilfsnadel abstricken.
+1/1/1 RPT=1/1/1 RPT|2 M. auf eine Hilfsnadel nach hinten legen, 1 M. re verschr, 1 M. von der Hilfsnadel auf die linke Nadel legen, 1 M. li, 1 M. re verschr von der Hilfsnadel abstricken.
+
+1/2/1 RC=1/2/1 RC|3 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 2 M. von der Hilfsnadel auf die linke Nadel legen, 2 M. re, 1 M. re von der Hilfsnadel abstricken.
+1/2/1 RPC=1/2/1 RPC|3 M. auf eine Hilfsnadel nach hinten legen, 1 M. re, 2 M. von der Hilfsnadel auf die linke Nadel legen, 2 M. li, 1 M. re von der Hilfsnadel abstricken.
+
+2/1 RC=2/1 RC|1 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel, 1 M. re von der Hilfsnadel abstricken.
+2/1 RPC=2/1 RPC|1 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel, 1 M. li von der Hilfsnadel abstricken.
+2/1 RT=2/1 RT|1 M. auf eine Hilfsnadel nach hinten legen, 2 M. re verschr von der linken Nadel, 1 M. re verschr von der Hilfsnadel abstricken.
+2/1 RPT=2/1 RPT|1 M. auf eine Hilfsnadel nach hinten legen, 2 M. re verschr von der linken Nadel, 1 M. li von der Hilfsnadel abstricken.
+
+2/2 RC=2/2 RC|2 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
+2/2 RPC=2/2 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 2 M. li von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
+
+3/1 RC=3/1 RC|1 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 1 M. re von der Hilfsnadel abstricken.
+3/1 RPC=3/1 RPC|1 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 1 M. li von der Hilfsnadel abstricken.
+
+3/2 RC=3/2 RC|2 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
+3/2 RPC=3/2 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 2 M. li von der Hilfsnadel abstricken.
+
+3/3 RC=3/3 RC|3 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 3 M. re von der Hilfsnadel abstricken.
+
+4/1 RC=4/1 RC|1 M. auf eine Hilfsnadel nach hinten legen, 4 M. re von der linken Nadel, 1 M. re von der Hilfsnadel abstricken.
+4/2 RC=4/2 RC|2 M. auf eine Hilfsnadel nach hinten legen, 4 M. re von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
+4/3 RC=4/3 RC|3 M. auf eine Hilfsnadel nach hinten legen, 4 M. re von der linken Nadel, 3 M. re von der Hilfsnadel abstricken.
+4/4 RC=4/4 RC|4 M. auf eine Hilfsnadel nach hinten legen, 4 M. re von der linken Nadel, 4 M. re von der Hilfsnadel abstricken.
