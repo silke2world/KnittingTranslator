@@ -229,7 +229,7 @@ function finalize(text) {
   return text
     .replace(/\r/g, "")
     .split("\n")
-    .map(line => line.trim())
+    .map(line => "\t" + line.trim())
     .join("\n");
 }
 
