@@ -12,10 +12,17 @@ let rulesText = [];
 // ====================
 
 function addUsed(usedMap, entry) {
-  const key =
-    entry.input.toLowerCase().trim() + "|" +
-    entry.output.toLowerCase().trim() + "|" +
-    entry.meaning.toLowerCase().trim();
+  let key;
+
+  if (entry.rule === "smart-k" || entry.rule === "smart-p") {
+    // Alle k-Regeln bzw. alle p-Regeln nur einmal ausgeben
+    key = entry.rule;
+  } else {
+    key =
+      entry.input.toLowerCase().trim() + "|" +
+      entry.output.toLowerCase().trim() + "|" +
+      entry.meaning.toLowerCase().trim();
+  }
 
   if (!usedMap.has(key)) {
     usedMap.set(key, entry);
