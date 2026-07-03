@@ -173,6 +173,8 @@ function smartExpand(text, usedMap) {
 // ====================
 
 function translateText() {
+  console.count("translateText");
+  
   let text = document.getElementById("input").value;
 
   let used = new Map();
