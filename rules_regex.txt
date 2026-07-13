@@ -7,5 +7,5 @@ to last (\d+) sts,=bis zu den letzten $1 Maschen,
 sl(\d+) wyib=$1abh. (Garn hinten)|$1 Masche(n) abheben wie zum links stricken mit dem Garn hinter der Arbeit
 sl(\d+) wyif=$1abh. (Garn vorn)|$1 Masche(n) abheben wie zum links stricken mit dem Garn vor der Arbeit
 sl(\d+) wyib=$1 M. abh. (Garn hinten) |$1 Masche(n) abheben wie zum links stricken (Garn hinter der Arbeit)
-(\((\d+)( sts)\))=($1 M.)
+\((\d+)\s+sts\)=($1 M.)
 
