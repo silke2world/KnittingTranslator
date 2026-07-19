@@ -1,4 +1,5 @@
 multiple of (\d+)=Vielfaches von $1
+(\d+) times=$1x
 k(\d+)tog=$1re zus.|$1 Maschen rechts zusammenstricken
 p(\d+)tog=$1li zus.|$1 Maschen links zusammenstricken
 k(\d+) tbl=$1re verschr.|$1 Maschen rechts verschränkt stricken
