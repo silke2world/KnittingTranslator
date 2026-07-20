@@ -1,4 +1,4 @@
-multiple of (\d+) sts.=Vielfaches von $1 M.
+multiple of (\d+) sts=Vielfaches von $1 M.
 (\d+) times=$1x
 k(\d+)tog=$1re zus.|$1 Maschen rechts zusammenstricken
 p(\d+)tog=$1li zus.|$1 Maschen links zusammenstricken
