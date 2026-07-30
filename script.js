@@ -150,7 +150,7 @@ function applyRule(text, rule, usedMap, regex) {
 // ====================
 
 function smartExpand(text, usedMap) {
-  return text.replace(/\b([kp])(\d+)\b/gi, (match, type, num) => {
+  return text.replace(/(?<![\w-])([kp])(\d+)(?![\w-])/gi, (match, type, num) => {
     let repl = "";
 
     if (type.toLowerCase() === "k") {
@@ -192,10 +192,8 @@ function translateText() {
 
   if (!text) return;
 
-  // 1. Smart Regeln
-  text = smartExpand(text, used);
-
-  // 2. Regex Regeln
+  
+  // 1. Regex Regeln
   for (let rule of rulesRegex) {
     const regex = buildRegex(rule);
     if (!regex || !text.match(regex)) continue;
@@ -203,13 +201,17 @@ function translateText() {
     text = applyRule(text, rule, used, regex);
   }
 
-  // 3. Text Regeln
+  // 2. Text Regeln
   for (let rule of rulesText) {
     const regex = buildRegex(rule);
     if (!regex || !text.match(regex)) continue;
 
     text = applyRule(text, rule, used, regex);
   }
+  
+  // 3. Smart Regeln
+  
+  text = smartExpand(text, used);
 
   text = finalize(text);
 
