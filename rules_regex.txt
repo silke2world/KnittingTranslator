@@ -10,4 +10,8 @@ sl(\d+) wyif=$1abh. (Garn vorn)|$1 Masche(n) abheben wie zum links stricken mit 
 sl(\d+) wyib=$1 M. abh. (Garn hinten) |$1 Masche(n) abheben wie zum links stricken (Garn hinter der Arbeit)
 \((\d+)\s+sts\)=($1 M.)
 \bsl1-k(\d+)-yo-psso\b=sl1-k$1-yo-psso|Hebe eine Masche wie zum Linksstricken ab. $1 re Maschen, Umschlag. Hebe nun die abgehobene Masche über die folgenden Maschen.
+
+# k-Regel: verhindert Treffer in k2tog, k2-yo usw.: die Zeichen davor und danach explizit auszuschließen:
 (?<![\w-])k(\d+)(?![\w-])=$1re|$1 Maschen rechts stricken
+# p-Regel: verhindert Treffer in p2tog usw.: die Zeichen davor und danach explizit auszuschließen:
+(?<![\w-])p(\d+)(?![\w-])=$1li|$1 Maschen links stricken
