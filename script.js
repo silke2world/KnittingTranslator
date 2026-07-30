@@ -201,6 +201,10 @@ function translateText() {
     text = applyRule(text, rule, used, regex);
   }
 
+  // 3. Smart Regeln
+  
+  text = smartExpand(text, used);
+  
   // 2. Text Regeln
   for (let rule of rulesText) {
     const regex = buildRegex(rule);
@@ -208,10 +212,6 @@ function translateText() {
 
     text = applyRule(text, rule, used, regex);
   }
-  
-  // 3. Smart Regeln
-  
-  text = smartExpand(text, used);
 
   text = finalize(text);
 
