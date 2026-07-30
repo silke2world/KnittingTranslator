@@ -27,6 +27,12 @@ turn=Arbeit wenden
 twice=2x|zweimal die Anweisungen in der Klammer stricken
 yo=U|Umschlag
 
+# Abnahmen 
+
+
+sl1-k2tog-psso=dop. überz. Abn.| 1 doppelt überzogene Abnahme: 1 Masche rechts abheben, die folgenden 2 Maschen rechts zusammenstricken und die abgehobene Masche darüberziehen
+Sl2-k1-p2sso=dop. re überz. Abn.|  1 doppelt rechts überzogene Abnahme: 2 Maschen abheben (wie zum rechts zusammenstricken), die folgende Masche rechts stricken und die abgehobenen Masche über die gestrickte Masche heben.
+
 # Zunahmen
 
 incL = incL|Lifted increase to left: hochgezogene Zunahme nach links: die Masche zwei Reihen unter der ersten Masche auf der rechten Nadel auf die linke Nadel geben und rechts abstricken.
