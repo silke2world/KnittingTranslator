@@ -94,7 +94,9 @@ function parseRules(text, isRegex) {
         meaning: (meaning || "").trim(),
         isRegex
       };
-    });
+    })
+    // längere/spezielle Regeln zuerst
+    .sort((a, b) => b.pattern.length - a.pattern.length);
 }
 
 // ====================
