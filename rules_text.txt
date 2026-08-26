@@ -103,6 +103,10 @@ CO=anschlagen|cast on: Maschen anschlagen
 2/2 LC=2/2 LC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
 2/2 LPC=2/2 LPC|2 M. auf eine Hilfsnadel nach vorn legen, 2 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
 
+2/3 LC=2/2 LC|2 M. auf eine Hilfsnadel nach vorn legen, 3 M. re von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+2/3 LPC=2/2 LPC|2 M. auf eine Hilfsnadel nach vorn legen, 3 M. li von der linken Nadel abstricken, 2 M. re von der Hilfsnadel abstricken.
+
+
 3/1 LC=3/1 LC|3 M. auf eine Hilfsnadel nach vorn legen, 1 M. re von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
 3/1 LPC=3/1 LPC|3 M. auf eine Hilfsnadel nach vorn legen, 1 M. li von der linken Nadel abstricken, 3 M. re von der Hilfsnadel abstricken.
 
@@ -148,6 +152,9 @@ CO=anschlagen|cast on: Maschen anschlagen
 
 2/2 RC=2/2 RC|2 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
 2/2 RPC=2/2 RPC|2 M. auf eine Hilfsnadel nach hinten legen, 2 M. li von der linken Nadel, 2 M. re von der Hilfsnadel abstricken.
+
+2/3 RC=2/2 RC|3 M. auf eine Hilfsnadel nach hinten legen, 2 M. re von der linken Nadel, 3 M. re von der Hilfsnadel abstricken.
+2/3 RPC=2/2 RPC|3 M. auf eine Hilfsnadel nach hinten legen, 2 M. li von der linken Nadel, 3 M. re von der Hilfsnadel abstricken.
 
 3/1 RC=3/1 RC|1 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 1 M. re von der Hilfsnadel abstricken.
 3/1 RPC=3/1 RPC|1 M. auf eine Hilfsnadel nach hinten legen, 3 M. re von der linken Nadel, 1 M. li von der Hilfsnadel abstricken.
