@@ -11,6 +11,9 @@ sl(\d+) wyib=$1 M. abh. (Garn hinten) |$1 Masche(n) abheben wie zum links strick
 \((\d+)\s+sts\)=($1 M.)
 \bsl1-k(\d+)-yo-psso\b=sl1-k$1-yo-psso|Hebe eine Masche wie zum Linksstricken ab. $1 re Maschen, Umschlag. Hebe nun die abgehobene Masche über die folgenden Maschen.
 
+(\d+)/(\d+) LC=\d+/\d+ LC\|$1 M. auf eine Hilfsnadel nach vorn legen, $2 M. re von der linken Nadel abstricken, $1 M. re von der Hilfsnadel abstricken.
+(\d+)/(\d+) RC=\d+/\d+ RC\|$2 M. auf eine Hilfsnadel nach hinten legen, $1 M. re von der linken Nadel abstricken, $2 M. re von der Hilfsnadel abstricken.
+
 # k-Regel: verhindert Treffer in k2tog, k2-yo usw.: die Zeichen davor und danach explizit auszuschließen:
 # (?<![\w-])k(\d+)(?![\w-])=$1re|$1 Maschen rechts stricken
 # p-Regel: verhindert Treffer in p2tog usw.: die Zeichen davor und danach explizit auszuschließen:
