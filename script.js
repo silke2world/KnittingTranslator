@@ -15,14 +15,48 @@ function addUsed(usedMap, entry) {
   let key;
 
   if (entry.rule === "smart-k" || entry.rule === "smart-p") {
-    // Alle k-Regeln bzw. alle p-Regeln nur einmal ausgeben
-    key = entry.rule;
-  } else {
-    key =
-      entry.input.toLowerCase().trim() + "|" +
-      entry.output.toLowerCase().trim() + "|" +
-      entry.meaning.toLowerCase().trim();
+    const type = entry.rule === "smart-k" ? "k" : "p";
+    const num = parseInt(entry.input.match(/\d+/)?.[0] || "0", 10);
+
+    // k1 / p1 nur dann verwenden, wenn es keine Zahl > 1 gibt
+    if (num === 1) {
+      key = `${entry.rule}-one`;
+
+      // Gibt es bereits k2/p2 oder höher? Dann k1 nicht aufnehmen
+      const hasLarger = [...usedMap.values()].some(e =>
+        e.rule === entry.rule &&
+        parseInt(e.input.match(/\d+/)?.[0] || "0", 10) > 1
+      );
+
+      if (hasLarger) return;
+    } else {
+      // Kleinste Zahl > 1 merken
+      key = entry.rule;
+
+      const existing = usedMap.get(key);
+
+      if (existing) {
+        const existingNum = parseInt(
+          existing.input.match(/\d+/)?.[0] || "0",
+          10
+        );
+
+        // Nur die kleinere Zahl > 1 behalten
+        if (num >= existingNum) return;
+      }
+
+      // Falls bisher nur k1/p1 vorhanden war, entfernen
+      usedMap.delete(`${entry.rule}-one`);
+    }
+
+    usedMap.set(key, entry);
+    return;
   }
+
+  key =
+    entry.input.toLowerCase().trim() + "|" +
+    entry.output.toLowerCase().trim() + "|" +
+    entry.meaning.toLowerCase().trim();
 
   if (!usedMap.has(key)) {
     usedMap.set(key, entry);
@@ -150,35 +184,38 @@ function applyRule(text, rule, usedMap, regex) {
 // ====================
 
 function smartExpand(text, usedMap) {
-  return text.replace(/(?<![\w-])([kp])(\d+)(?![\w-])/gi, (match, type, num) => {
-    let repl = "";
+  return text.replace(
+    /(?<![\w-])([kp])(\d+)(?![\w-])/gi,
+    (match, type, num) => {
 
-    if (type.toLowerCase() === "k") {
-      repl = `${num}re`;
+      let repl = "";
+      let meaning = "";
+
+      if (type.toLowerCase() === "k") {
+        repl = `${num}re`;
+        meaning = num === "1"
+          ? "1 Masche rechts stricken"
+          : `${num} Maschen rechts stricken`;
+      }
+
+      if (type.toLowerCase() === "p") {
+        repl = `${num}li`;
+        meaning = num === "1"
+          ? "1 Masche links stricken"
+          : `${num} Maschen links stricken`;
+      }
 
       addUsed(usedMap, {
         input: match,
         output: repl,
-        meaning: `${num} Maschen rechts stricken`,
-        rule: "smart-k"
+        meaning: meaning,
+        rule: `smart-${type.toLowerCase()}`
       });
+
+      return repl;
     }
-
-    if (type.toLowerCase() === "p") {
-      repl = `${num}li`;
-
-      addUsed(usedMap, {
-        input: match,
-        output: repl,
-        meaning: `${num} Maschen links stricken`,
-        rule: "smart-p"
-      });
-    }
-
-    return repl;
-  });
+  );
 }
-
 // ====================
 // Hauptfunktion
 // ====================
